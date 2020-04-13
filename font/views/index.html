@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en" ng-app="recommand">
+<head>
+	<meta charset="UTF-8">
+	<meta name='referrer' content="never">
+	<link rel="shortcut icon" href="//mat1.gtimg.com/www/icon/favicon2.ico" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<title>首页</title>
+
+    <link rel="stylesheet" type="text/css" href="./news.css">
+
+	<link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">
+	<script src="js/jquery.min.js"></script>
+    <script src="js/angular.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    <script src="js/layer.js"></script>
+
+    <script src="js/angular-cookies.js"></script>
+
+    <script type="text/javascript" src="js/index.js"></script>
+
+	<link rel="stylesheet" href="css/spigPet.css" type="text/css">
+
+	<script type="text/javascript">
+		var isindex = true;
+		var visitor = true;
+    </script>
+
+	<script type="text/javascript" src="js/spig.js"></script>
+	<style>
+
+
+       .fontLogo{
+            font-family: "黑体";
+            color: #8c888b;
+            background: -webkit-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        -moz-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        -ms-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+            color: transparent;
+            /*设置字体颜色透明*/
+            -webkit-background-clip: text;
+            /*背景裁剪为文本形式*/
+            animation: ran 10s linear infinite;
+            /*动态10s展示*/
+        }
+
+        @keyframes ran {
+            from {
+                backgroud-position: 0 0;
+            }
+            to {
+                background-position: 2000px 0;
+            }
+        }
+
+        .info{
+            line-height: 50px;
+            font-family:Arial,Helvetica,sans-serif;font-size:100%;
+
+        }
+		.touimg{
+			width: 50px;
+			border-radius: 50%;
+			padding: 5px;
+		}
+		.navbar-default{
+
+			position: fixed;
+			left: 0px;
+			top:0px;
+			right: 0px;
+			z-index:9999
+		}
+
+	</style>
+    <link rel="stylesheet" href="css/styleButton.css">
+</head>
+
+
+
+
+<body ng-controller="indexController">
+
+<div id="normals">
+
+	<div class="navbar navbar-default"  >
+		<div class="container">
+			<div class="navbar-header" style="position:absolute;left:80px">
+				<div class="navbar-brand">
+					<img src="https://c-ssl.duitang.com/uploads/item/201806/19/20180619182220_KLEPM.png">
+				</div>
+		  	</div>
+		  	<label for="toggle-checkbox" id="toggle-label" class="visible-xs-inline-block">MENU</label>
+		  	<input type="checkbox" id="toggle-checkbox" class="hidden">
+		  	<div class="hidden-xs" style="position: absolute;left: 170px">
+		  		<ul class="nav navbar-nav" >
+					<li class="lan"><a href="#" ng-click="editTag('推荐')">推荐</a>
+                    <li class="lan"><a href="#" ng-click="editTag('hot')">最火壁纸</a>
+                    <li class="lan"><a href="#" ng-click="editTag('new')">最新壁纸</a>
+			  		<li class="lan"><a href="#" ng-click="editTag('壁纸')" >高清壁纸</a>
+			  		<li class="lan"><a href="#" ng-click="editTag('美妆造型')">美妆造型</a>
+					<li class="lan active"><a href="#" ng-click="editTag('人物明星')">人物明星</a>
+					<li class="lan"><a href="#" ng-click="editTag('文字句子')">文字句子</a>
+					<li class="lan"><a ng-click="getAction('Zan')">我的点赞</a>
+                    <li class="lan"><a ng-click="getAction('Pinglun')">我的评论</a>
+                    <li class="lan"><a ng-click="getAction('Shoucang')">我的收藏</a>
+
+
+
+
+
+
+
+                </ul>
+                <style>
+                    select{
+                        border: 0; background: transparent;
+                        -webkit-appearance:none;
+                        appearance:none;
+                    }
+                </style>
+                <div class="search-bar" style="width: 200px;position: absolute;left: 780px;top:10px">
+                    <input ng-model="like"  type="search"  placeholder="搜索" class="form-control" />
+                </div>
+
+
+                </div>
+			  	<ul class="nav navbar-nav navbar-right" style="position: fixed;right: 10px">
+                    <li><a href="#">{{local}}</a> </li>
+					<li><img src="{{user.url}}" class="touimg"></li>
+			  		<li ng-if="user!=null" class="username"><a href="update">{{user.username}}</a></li>
+					<li ng-if="user==null"><a href="/login">login</a></li>
+                    <li ><img class="touimg" src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2195637101,2119225268&fm=26&gp=0.jpg" ng-click="out()"></li>
+
+                </ul>
+		  	</div>
+		</div>
+	</div>
+
+	<div class="container" style="margin-top: 70px" >
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="news-list">
+                    <style>
+
+                        .dynamic-feed-item {
+                            /*width: 600px;*/
+                            border: 1px solid #e0e0e0;
+                            margin-bottom: 20px;
+                        }
+                        blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        user agent stylesheet
+                        div {
+                            display: block;
+                        }
+                        body, button, input, select, td, textarea, th {
+                            font-size: 12px;
+                            line-height: 1.5;
+                            font-family: -apple-system-font,PingFang SC,Helvetica Neue,Helvetica,STHeiTi,sans-serif;
+                            color: #666;
+                        }
+                        user agent stylesheet
+                        html {
+                            color: -internal-root-color;
+                        }
+                        ::selection {
+                            color: #fff;
+                            color: rgba(255,255,255,.85);
+                            background: #cee3f2;
+                        }
+
+                         .action-list {
+                             display: -webkit-box;
+                             display: -webkit-flex;
+                             display: -moz-box;
+                             display: -ms-flexbox;
+                             display: flex;
+                             -webkit-box-pack: justify;
+                             -webkit-justify-content: space-between;
+                             -moz-box-pack: justify;
+                             -ms-flex-pack: justify;
+                             justify-content: space-between;
+                         }
+                        .de-action .action-list .one-action {
+                            margin: 10px 0;
+                            height: 44px;
+                            border-right: 1px solid #e0e0e0;
+                            -webkit-box-flex: 1;
+                            -webkit-flex: 1;
+                            -moz-box-flex: 1;
+                            -ms-flex: 1;
+                            flex: 1;
+                            display: -webkit-box;
+                            display: -webkit-flex;
+                            display: -moz-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-box-pack: center;
+                            -webkit-justify-content: center;
+                            -moz-box-pack: center;
+                            -ms-flex-pack: center;
+                            justify-content: center;
+                            text-align: center;
+                            -webkit-box-align: center;
+                            -webkit-align-items: center;
+                            -moz-box-align: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            cursor: pointer;
+                        }
+                        .left{
+                            position:absolute;width: 282px;left: 0px
+                        }
+                        .zhong{
+                            position:absolute;width: 282px;left:300px
+                        }.right{
+                                                     position:absolute;width: 282px;left:600px
+                                                 }
+                        .last{
+                            position:absolute;width: 282px;left:900px
+                        }
+
+                    </style>
+                    <div class="left">
+                    <div class="dynamic-feed-item dynamic-article hasExposure"   ng-repeat="news in leftList track by $index" >
+                        <div class="feed-container">
+                            <div class="user-info">
+                                <span  class="avatar " style="float: left"><img src="{{news.authorUrl}}"></span>
+
+                                <div class="user-desc " >
+                                    <p class="username " ng-click="showAuthor(news.author)">{{news.author}}</p>
+
+                                    <p class="publish-time" style="margin-top: 10px">发布于{{news.time}}</p>
+                                </div>
+                            </div><br>
+
+<!--                            <p class="">{{news.title}}</p>-->
+                            <p class="">{{news.msg}}</p>
+                            <div >
+                                <div class="agent" style="position: relative" ng-mouseover="downShow($index,0)" ng-mouseout="downClear($index,0)">
+                                    <img src="{{news.photo}}" />
+
+                                    <button class="button" ng-click="downImg($index,news.photo,news.down)" >
+                                        <span>下载图片</span>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="de-action">
+                            <div class="action-list" >
+                                <div class="like-action one-action" ng-click="actionLeft('zan',news.id,$index)" data-likeid="0" ng-if="!contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_kt5Rj.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+                                <div class="like-action one-action  " ng-click="actionLeft('clearzan',news.id,$index)" data-likeid="0" ng-if="contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+
+                                <div class="favorite-action one-action "   ng-click="actionLeft('shoucang',news.id,$index)"data-favoriteid="0" ng-if="!contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_YizTc.png">
+                                    <!--                                            <img ng-show="false"src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png"></div>-->
+                                    <span class="detail-text">{{news.shoucang}}</span>
+                                </div>
+                                <div class="like-action one-action" ng-click="actionLeft('clearshoucang',news.id,$index)" data-likeid="0" ng-if="contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.shoucang}}</span>
+                                </div>
+                                <div class="favorite-action one-action " data-favoriteid="0" ng-click="showTextLeft(news.id,$index)">
+                                    <img  src="https://c-ssl.duitang.com/uploads/item/201804/19/20180419194625_PvmZi.png">
+                                    <span class="detail-text">{{news.pinglun}}</span>
+                                </div>
+                                <div class="more-action one-action">
+
+                                    <img  src="download.png" width="36px" height="36px">
+                                    <span class="detail-text">{{news.down}}</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="zhong">
+                    <div class="dynamic-feed-item dynamic-article hasExposure"   ng-repeat="news in zhongList track by $index" >
+                        <div class="feed-container">
+                            <div class="user-info">
+                                <span  class="avatar " style="float: left"><img src="{{news.authorUrl}}"></span>
+
+                                <div class="user-desc " >
+                                                                        <p class="username " ng-click="showAuthor(news.author)">{{news.author}}</p>
+
+                                    <p class="publish-time" style="margin-top: 10px" >发布于{{news.time}}</p>
+                                </div>
+                            </div><br>
+
+                            <!--                            <p class="">{{news.title}}</p>-->
+                            <p class="">{{news.msg}}</p>
+                            <div >
+                                <div class="agent" style="position: relative" ng-mouseover="downShow($index,leftList.length)" ng-mouseout="downClear($index,leftList.length)">
+                                    <img src="{{news.photo}}" />
+
+                                    <button class="button" ng-click="downImg($index+leftList.length,news.photo,news.down)" >
+                                        <span>下载图片</span>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="de-action">
+                            <div class="action-list" >
+                                <div class="like-action one-action" ng-click="actionZhong('zan',news.id,$index)" data-likeid="0" ng-if="!contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_kt5Rj.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+                                <div class="like-action one-action  " ng-click="actionZhong('clearzan',news.id,$index)" data-likeid="0" ng-if="contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+
+                                <div class="favorite-action one-action "   ng-click="actionZhong('shoucang',news.id,$index)"data-favoriteid="0" ng-if="!contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_YizTc.png">
+                                    <!--                                            <img ng-show="false"src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png"></div>-->
+                                    <span class="detail-text">{{news.shoucang}}</span>
+                                </div>
+                                <div class="like-action one-action" ng-click="actionZhong('clearshoucang',news.id,$index)" data-likeid="0" ng-if="contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.shoucang}}</span>
+                                </div>
+                                <div class="favorite-action one-action " data-favoriteid="0" ng-click="showTextZhong(news.id,$index)">
+                                    <img  src="https://c-ssl.duitang.com/uploads/item/201804/19/20180419194625_PvmZi.png">
+                                    <span class="detail-text">{{news.pinglun}}</span>
+                                </div>
+                                <div class="more-action one-action">
+
+                                    <img  src="download.png" width="36px" height="36px">
+                                    <span class="detail-text">{{news.down}}</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="right">
+                    <div class="dynamic-feed-item dynamic-article hasExposure "   ng-repeat="news in rightList track by $index" >
+                        <div class="feed-container">
+                            <div class="user-info">
+                                <span  class="avatar " style="float: left"><img src="{{news.authorUrl}}"></span>
+
+                                <div class="user-desc " >
+                                                                        <p class="username
+" ng-click="showAuthor(news.author)">{{news.author}}</p>
+
+                                    <p class="publish-time" style="margin-top: 10px">发布于{{news.time}}</p>
+                                </div>
+                            </div><br>
+
+                            <!--                            <p class="">{{news.title}}</p>-->
+                            <p class="
+">{{news.msg}}</p>
+                            <div >
+                                <div class="agent" style="position: relative" ng-mouseover="downShow($index,leftList.length+zhongList.length)" ng-mouseout="downClear($index,leftList.length+zhongList.length)">
+                                    <img src="{{news.photo}}" />
+
+                                    <button class="button" ng-click="downImg($index+leftList.length+zhongList.length,news.photo,news.down)" >
+                                        <span>下载图片</span>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="de-action">
+                            <div class="action-list" >
+                                <div class="like-action one-action" ng-click="actionRight('zan',news.id,$index)" data-likeid="0" ng-if="!contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_kt5Rj.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+                                <div class="like-action one-action  " ng-click="actionRight('clearzan',news.id,$index)" data-likeid="0" ng-if="contain('zan',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.zan}}</span>
+                                </div>
+
+                                <div class="favorite-action one-action "   ng-click="actionRight('shoucang',news.id,$index)"data-favoriteid="0" ng-if="!contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_YizTc.png">
+                                    <!--                                            <img ng-show="false"src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png"></div>-->
+                                    <span class="detail-text">{{news.shoucang}}</span>
+                                </div>
+                                <div class="like-action one-action" ng-click="actionRight('clearshoucang',news.id,$index)" data-likeid="0" ng-if="contain('shoucang',news.id)">
+                                    <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png">
+                                    <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                    <span class="detail-text" >{{news.shoucang}}</span>
+                                </div>
+                                <div class="favorite-action one-action " data-favoriteid="0" ng-click="showTextRight(news.id,$index)">
+                                    <img  src="https://c-ssl.duitang.com/uploads/item/201804/19/20180419194625_PvmZi.png">
+                                    <span class="detail-text" >{{news.pinglun}}</span>
+                                </div>
+                                <div class="more-action one-action">
+
+                                    <img  src="download.png" width="36px" height="36px">
+                                    <span class="detail-text">{{news.down}}</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="last">
+                        <div class="dynamic-feed-item dynamic-article hasExposure "   ng-repeat="news in lastList track by $index" >
+                            <div class="feed-container">
+                                <div class="user-info">
+                                    <span  class="avatar " style="float: left"><img src="{{news.authorUrl}}"></span>
+
+                                    <div class="user-desc " >
+                                                                            <p class="username
+" ng-click="showAuthor(news.author)">{{news.author}}</p>
+
+                                        <p class="publish-time" style="margin-top: 10px">发布于{{news.time}}</p>
+                                    </div>
+                                </div><br>
+
+                                <!--                            <p class="">{{news.title}}</p>-->
+                                <p class="
+">{{news.msg}}</p>
+                                <div >
+                                    <div class="agent" style="position: relative" ng-mouseover="downShow($index,rightList.length+zhongList.length+leftList.length)" ng-mouseout="downClear($index,rightList.length+zhongList.length+leftList.length)">
+                                        <img src="{{news.photo}}" />
+
+                                        <button class="button" ng-click="downImg($index+rightList.length+zhongList.length+leftList.length,news.photo,news.down)" >
+                                            <span>下载图片</span>
+
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="de-action">
+                                <div class="action-list" >
+                                    <div class="like-action one-action" ng-click="actionLast('zan',news.id,$index)" data-likeid="0" ng-if="!contain('zan',news.id)">
+                                        <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_kt5Rj.png">
+                                        <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                        <span class="detail-text" >{{news.zan}}</span>
+                                    </div>
+                                    <div class="like-action one-action  " ng-click="actionLast('clearzan',news.id,$index)" data-likeid="0" ng-if="contain('zan',news.id)">
+                                        <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">
+                                        <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                        <span class="detail-text" >{{news.zan}}</span>
+                                    </div>
+
+                                    <div class="favorite-action one-action "   ng-click="actionLast('shoucang',news.id,$index)"data-favoriteid="0" ng-if="!contain('shoucang',news.id)">
+                                        <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423141044_YizTc.png">
+                                        <!--                                            <img ng-show="false"src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png"></div>-->
+                                        <span class="detail-text">{{news.shoucang}}</span>
+                                    </div>
+                                    <div class="like-action one-action" ng-click="actionLast('clearshoucang',news.id,$index)" data-likeid="0" ng-if="contain('shoucang',news.id)">
+                                        <img src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423122004_sYcGR.png">
+                                        <!--                                            <img  ng-show="false" src="https://c-ssl.duitang.com/uploads/item/201804/23/20180423144103_3RcMy.png">-->
+                                        <span class="detail-text" >{{news.shoucang}}</span>
+                                    </div>
+                                    <div class="favorite-action one-action " data-favoriteid="0" ng-click="showTextLast(news.id,$index)">
+                                        <img  src="https://c-ssl.duitang.com/uploads/item/201804/19/20180419194625_PvmZi.png">
+                                        <span class="detail-text">{{news.pinglun}}</span>
+                                    </div>
+                                    <div class="more-action one-action">
+
+                                        <img  src="download.png" width="36px" height="36px">
+                                        <span class="detail-text">{{news.down}}</span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+				</div>
+			</div>
+<!--			<div class="col-md-4">-->
+<!--				<div class="search-bar" >-->
+<!--					<input ng-model="search"  type="search"  placeholder="搜索" class="form-control" />-->
+<!--				</div>-->
+<!--				<div class="side-bar-card flag clearfix">-->
+<!--					<div class="col-xs-5">-->
+<!--						<img src="./image/youhai.png"/>-->
+<!--					</div>-->
+<!--					<div class="col-xs-7">-->
+<!--						<div class="text-lg">仅做毕设使用</div>-->
+<!--						<div>侵权请联系：xxxxx</div>-->
+<!--					</div>-->
+<!--				</div>-->
+
+<!--				<div class="side-bar-card">-->
+<!--					<div class="card-title">-->
+<!--						24小时新闻-->
+<!--					</div>-->
+<!--					<div class="card-body"  ng-mouseleave="fu()">-->
+<!--						<div class="list">-->
+<!--							<div class="item" ng-repeat="x in dayList" >-->
+<!--								<div class="title" ng-click="saveArticle(x)">{{x.title}}</div>-->
+<!--								<div class="desc" ng-click="opennew(x.url)">{{x.author}} 查看原网页</div>-->
+<!--								<div class="desc"><img src={{x.imgurl}}></div>-->
+<!--							</div>-->
+
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+		</div>
+	</div>
+<!--	<div class="footer">-->
+<!--		<div class="glyphicon glyphicon-copyright-mark"></div>-->
+<!--		2017  拴蛋头条  中国互联网举报中心ICP证1401号-->
+<!--	</div>-->
+	<div id="spig" class="spig" style="top: 100px; left: 1132px;" >
+		<div id="message" style="display: block; opacity: 0.6784994322550366;">输入你想搜索的关键词再按Enter(回车)键就可以搜索啦!</div>
+		<div id="mumu" class="mumu" style="opacity: 1;"></div>
+	</div>
+</div>
+<script>
+
+</script>
+<div id="loading" style="display: none;">
+
+	<iframe src="/loading" width="100%"></iframe>
+
+</div>
+</body>
+</html>

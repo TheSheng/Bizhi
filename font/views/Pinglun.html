@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta  http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name='referrer' content="never">
+
+    <link type="text/css" href="css/stylePinglun.css" rel="stylesheet" />
+
+    <title>星空弹幕</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/pinglun.js"></script>
+
+    <script>
+
+
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return encodeURI(r[2]); return null;
+        }
+        var photoId = GetQueryString("photoId");
+        var phone=GetQueryString("phone");
+    </script>
+
+</head>
+<body ng-app="myApp">
+<div class="screen" ng-controller="pinglun">
+    <div class="landscape"></div>
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+    <div class="send">
+        <div class="input clearfix">
+            <input type="text" class="text" ng-model="ping" placeholder="请输入您的评论">
+            <div class="btn" ng-click="add()">添加评论</div>
+        </div>
+    </div>
+
+<div class="s_show">
+    <div class="magictime twisterInUp" ng-repeat="i in pinglun track by $index">{{i}}</div>
+</div>
+
+</div>
+
+
+
+</body>
+</html>

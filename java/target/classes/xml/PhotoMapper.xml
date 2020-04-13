@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.java.mapper.PhotoMapper">
+
+    <!-- 通用查询映射结果 -->
+
+    <select id="insertById" parameterType="com.bishe.java.pojo.Photo" >
+        insert into photo values(#{photo.id},#{photo.title},#{photo.photo},#{photo.msg},#{photo.author},#{photo.authorUrl},#{photo.time},#{photo.type},#{photo.zan},#{photo.shoucang},#{photo.pinglun},#{photo.down},#{photo.height})
+
+    </select>
+    <update id="updateByUrlString" parameterType="java.lang.String">
+        update photo set down=down+1 where photo=#{urlString}
+    </update>
+    <update id="updateZanByAction">
+                update photo set zan=zan+#{count} where id=#{id}
+    </update>
+    <update id="updateShoucangByAction">
+                update photo set shoucang=shoucang+#{count} where id=#{id}
+    </update>
+    <update id="updatePinglunByAction">
+                update photo set pinglun=pinglun+#{count} where id=#{id}
+    </update>
+    <select id="selectByType"  parameterType="java.lang.String" resultType="com.bishe.java.pojo.Photo">
+        select * from photo where type=#{type} order by time desc
+    </select>
+    <select id="selectByTuiJian"  resultType="com.bishe.java.pojo.Photo">
+        select * from photo  order by rand()
+    </select>
+    <select id="selectByHuo"  resultType="com.bishe.java.pojo.Photo">
+        select * from photo  order by zan desc
+    </select>
+    <select id="selectByNew"  resultType="com.bishe.java.pojo.Photo">
+        select * from photo  order by time desc
+    </select>
+    <select id="getNumBytype" resultType="java.util.HashMap">
+         select type,count(*) as num from photo GROUP BY type order by count(*) desc
+    </select>
+    <select id="get0ShouCang" resultType="java.lang.Integer" >
+        select count(*) from photo group by shoucang>0
+    </select>
+    <select id="get0Zan" resultType="java.lang.Integer">
+        select count(*) from photo group by zan>0
+    </select>
+    <select id="getScoreTen" resultType="com.bishe.java.pojo.Photo">
+        select * from photo ORDER BY zan+shoucang desc limit 14
+    </select>
+    <select id="getSumZan" resultType="java.util.HashMap">
+      select type,sum(zan) as sum from photo GROUP BY type
+    </select>
+    <select id="getSumShoucang" resultType="java.util.HashMap">
+      select type,sum(shoucang) as sum from photo GROUP BY type
+    </select>
+    <select id="selectByAuthor"  parameterType="java.lang.String" resultType="com.bishe.java.pojo.Photo">
+        select * from photo where author=#{author} order by time desc
+    </select>
+    <select id="selectByMsg"  parameterType="java.lang.String" resultType="com.bishe.java.pojo.Photo">
+        select * from photo where
+        msg like '%${msg}%'
+        or author like '%${msg}%'
+         order by time desc
+    </select>
+    <select id="selectInList" resultType="com.bishe.java.pojo.Photo">
+        select  * from photo where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+                   #{id}
+        </foreach>
+    </select>
+</mapper>
